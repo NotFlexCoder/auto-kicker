@@ -1,4 +1,4 @@
-const { Telegraf, Markup } = require("telegraf");
+import { Telegraf, Markup } from "telegraf";
 
 const bot = new Telegraf("7699005018:AAFgqMKxublJdOl7RVjGaEA6uvkmhKN6RTc");
 let groupId = null;
