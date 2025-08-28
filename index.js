@@ -1,4 +1,5 @@
 import { Telegraf, Markup } from "telegraf";
+import express from "express";
 
 const bot = new Telegraf("7699005018:AAFgqMKxublJdOl7RVjGaEA6uvkmhKN6RTc");
 let groupId = null;
@@ -28,4 +29,12 @@ bot.on("left_chat_member", async (ctx) => {
   } catch (e) {}
 });
 
-bot.launch();
+const app = express();
+app.use(express.json());
+app.use(bot.webhookCallback("/"));
+
+app.get("/", (req, res) => res.send("Bot is running via Webhook!"));
+
+app.listen(3000, () => {
+  console.log("Server started on port 3000");
+});
