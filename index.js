@@ -1,12 +1,13 @@
 import { Telegraf, Markup } from "telegraf";
 import express from "express";
 
-const bot = new Telegraf("7699005018:AAFgqMKxublJdOl7RVjGaEA6uvkmhKN6RTc");
+const token = "7699005018:AAFgqMKxublJdOl7RVjGaEA6uvkmhKN6RTc";
+const bot = new Telegraf(token);
 let groupId = null;
 
 bot.start((ctx) => {
   groupId = ctx.chat.id;
-  ctx.reply("Group/Channel ID saved: " + groupId);
+  ctx.reply("Bot is working. Group/Channel ID saved: " + groupId);
 });
 
 bot.on("left_chat_member", async (ctx) => {
@@ -31,10 +32,10 @@ bot.on("left_chat_member", async (ctx) => {
 
 const app = express();
 app.use(express.json());
-app.use(bot.webhookCallback("/"));
+app.use(bot.webhookCallback("/api"));
 
-app.get("/", (req, res) => res.send("Bot is running via Webhook!"));
+app.get("/", (req, res) => res.send("Bot is running"));
 
 app.listen(3000, () => {
-  console.log("Server started on port 3000");
+  console.log("Server started");
 });
